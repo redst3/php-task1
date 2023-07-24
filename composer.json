@@ -1,0 +1,34 @@
+{
+  "name": "task1/commission-task-skeleton",
+  "description": "Skeleton for Paysera recruitment task",
+  "keywords": [],
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "Task1\\CommissionTask\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Task1\\CommissionTask\\Tests\\": "tests"
+    }
+  },
+  "require": {
+    "php": ">=7.0",
+    "ext-bcmath": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.5",
+    "friendsofphp/php-cs-fixer": "2.16"
+  },
+  "config": {
+    "sort-packages": true,
+    "bin-dir": "bin"
+  },
+  "scripts": {
+    "phpunit": "phpunit",
+    "test": [
+      "@phpunit"
+    ]
+  }
+}
