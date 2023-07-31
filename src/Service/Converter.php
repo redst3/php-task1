@@ -8,7 +8,7 @@ use Exception;
 
 Class Converter{
 
-    private $rates;
+    private array $rates;
 
     public function __construct(float $eur, float $usd, float $jpy)
     {

@@ -10,7 +10,8 @@ use Task1\CommissionTask\Entity\Client;
 
 
 class CommissionTest extends TestCase{
-    public function testCalculateCommissionResults(){
+    public function testCalculateCommissionResults(): void
+    {
         $expectedResults = [
             0.60,
             3.00,
@@ -18,13 +19,13 @@ class CommissionTest extends TestCase{
             0.06,
             1.50,
             0,
-            0.69,
+            0.70,
             0.30,
             0.30,
             3.00,
             0.00,
             0.00,
-            8611,
+            8612,
         ];
         $file = dirname(__DIR__) . '\Data\test_input.csv';
         if(file_exists($file)){

@@ -7,6 +7,8 @@
     composer install
 ```
 
+PHP version used for the project `7.4.9`
+
 ## To run the script
 
 ```sh

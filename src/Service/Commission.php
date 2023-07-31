@@ -11,12 +11,12 @@ Class Commission{
     const DEPOSIT_COMMISSION = 0.03;
     const WITHDRAWAL_COMMISSION_PRIVATE = 0.3;
     const WITHDRAWAL_COMMISSION_BUSINESS = 0.5;
-    private $clientOperations;
-    private $lastWidthdrawalMonday;
-    private $clientOperationCount;
-    private $clientTotalWithdrawal;
-    private $currentClientId;
-    private $converter;
+    private array $clientOperations;
+    private DateTime $lastWidthdrawalMonday;
+    private int $clientOperationCount;
+    private float $clientTotalWithdrawal;
+    private int $currentClientId;
+    private Converter $converter;
 
     public function __construct(array $initialOperations)
     {
@@ -30,13 +30,16 @@ Class Commission{
         $this->clientTotalWithdrawal = 0;
         $this->converter = new Converter(1, 1.1497, 129.53);
     }
-    private function resetDate(){
+    private function resetDate() : void
+    {
         $this->lastWidthdrawalMonday = new DateTime('1000-01-01');
     }
-    private function resetOperationCount(){
+    private function resetOperationCount() : void
+    {
         $this->clientOperationCount = 0;
     }
-    public function calculateCommission(){
+    public function calculateCommission() : void
+    {
         foreach ($this->clientOperations as $clientOperations){
             $this->resetDate();
             $this->resetOperationCount();
@@ -54,10 +57,10 @@ Class Commission{
                         
                 }
             }
-            //print_r($clientOperations);
         }
     }
-    private function calculateUsingWithdrawalRule(Client $operation){
+    private function calculateUsingWithdrawalRule(Client $operation) : void
+    {
         $clientId = $operation->getClientId();
         if($clientId !== $this->currentClientId ||
             $clientId === -1){
@@ -105,7 +108,8 @@ Class Commission{
                 break;
         }
     }
-    public function getOutput(array $operations) : array{
+    public function getOutput(array $operations) : array
+    {
         $feeArray = [];
         foreach($operations as $operation){
             $clientId = $operation->getClientId();
@@ -114,19 +118,27 @@ Class Commission{
                     $fee = $this->roundFees($clientOperation);
                     $feeArray[] = $fee;
                     echo $fee . "\n";
+                    
                 }
             }
         }
         return $feeArray;
     }
-    private function roundFees(Client $operation) : string{
+    private function roundFees(Client $operation) : string
+    {
         $currency = $operation->getCurrency();
         $fees = $operation->getFees();
         if($currency === "EUR" || $currency === "USD"){
+            $fees = round($fees, 2);
+            $fees < $operation->getFees() ? $fees += 0.01 : $fees;
             $fees = number_format($fees, 2, '.', '');
         } else if($currency === "JPY"){
+            $fees = round($fees, 0);
+            $fees < $operation->getFees() ? $fees += 1 : $fees;
             $fees = number_format($fees, 0, '.', '');
         }
+
+
         return $fees;
     }
 }

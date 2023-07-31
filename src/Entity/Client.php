@@ -6,13 +6,13 @@ namespace Task1\CommissionTask\Entity;
 
 class Client{
 
-    private $date;
-    private $clientId;
-    private $clientType;
-    private $operationType;
-    private $amount;
-    private $currency;
-    private $fees;
+    private  string $date;
+    private int $clientId;
+    private string $clientType;
+    private string $operationType;
+    private float $amount;
+    private string $currency;
+    private float $fees;
 
     public function __construct(string $date, int $clientId, string $clientType, string $operationType, float $amount, string $currency)
     {
@@ -60,7 +60,7 @@ class Client{
         return $this->fees;
     }
 
-    public function setFees(float $fees)
+    public function setFees(float $fees) : void
     {
         $this->fees = $fees;
     }
